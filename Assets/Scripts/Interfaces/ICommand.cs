@@ -8,6 +8,6 @@ public class ICommand : MonoBehaviour
     {
         public void Execute();
 
-        public void Execute(int value)
+        public void Execute(int value);
     }
 }
