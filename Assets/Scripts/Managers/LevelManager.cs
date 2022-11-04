@@ -1,116 +1,119 @@
-using System.Collections;
-using System.Collections.Generic;
+using Commands;
+using Data.UnityObjects;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+namespace Managers
 {
-    #region Self Variables
-
-    #region Public Variables
-
-    #endregion
-
-    #region Serialized Variables
-
-    [SerializeField] private int totalLevelCount, levelID;
-    [SerializeField] private Transform levelHolder;
-
-    #endregion
-
-    #region Private Variables
-
-    private CD_Level _levelData;
-
-    private OnLevelLoaderCommand _levelLoaderCommand;
-    private OnLevelDestroyerCommand _levelDestroyerCommand;
-
-    #endregion
-
-    #endregion
-
-    private void Awake()
+    public class LevelManager : MonoBehaviour
     {
-        _levelData = GetLevelData();
-        levelID = GetActiveLevel();
+        #region Self Variables
 
-        Init();
-    }
+        #region Public Variables
 
-    private int GetActiveLevel()
-    {
-        if (ES3.FileExists())
+        #endregion
+
+        #region Serialized Variables
+
+        [SerializeField] private int totalLevelCount, levelID;
+        [SerializeField] private Transform levelHolder;
+
+        #endregion
+
+        #region Private Variables
+
+        private CD_Level _levelData;
+
+        private OnLevelLoaderCommand _levelLoaderCommand;
+        private OnLevelDestroyerCommand _levelDestroyerCommand;
+
+        #endregion
+
+        #endregion
+
+        private void Awake()
         {
-            if (ES3.KeyExists("Level"))
-            {
-                return ES3.Load<int>(key: "Level");
-            }
+            _levelData = GetLevelData();
+            levelID = GetActiveLevel();
+
+            Init();
         }
 
-        return 0;
-    }
+        private int GetActiveLevel()
+        {
+            if (ES3.FileExists())
+            {
+                if (ES3.KeyExists("Level"))
+                {
+                    return ES3.Load<int>("Level");
+                }
+            }
 
-    private CD_Level GetLevelData() => Resources.Load<CD_Level>(path: "Data/CD_Level");
+            return 0;
+        }
 
-    private void Init()
-    {
-        _levelLoaderCommand = new OnLevelLoaderCommand(levelHolder);
-        _levelDestroyerCommand = new OnLevelDestroyerCommand(levelHolder);
-    }
+        private CD_Level GetLevelData() => Resources.Load<CD_Level>(path: "Data/CD_Level");
 
-    private void OnEnable()
-    {
-        SubscribeEvents();
-    }
+        private void Init()
+        {
+            _levelLoaderCommand = new OnLevelLoaderCommand(levelHolder);
+            _levelDestroyerCommand = new OnLevelDestroyerCommand(levelHolder);
+        }
 
-    private void SubscribeEvents()
-    {
-        CoreGameSignals.Instance.onLevelInitialize += _levelLoaderCommand.Execute;
-        CoreGameSignals.Instance.onClearActiveLevel += _levelDestroyerCommand.Execute;
-        CoreGameSignals.Instance.onNextLevel += OnNextLevel;
-        CoreGameSignals.Instance.onRestartLevel += OnRestartLevel;
-    }
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
 
-    private void UnSubscribeEvents()
-    {
-        CoreGameSignals.Instance.onLevelInitialize -= _levelLoaderCommand.Execute;
-        CoreGameSignals.Instance.onClearActiveLevel -= _levelDestroyerCommand.Execute;
-        CoreGameSignals.Instance.onNextLevel -= OnNextLevel;
-        CoreGameSignals.Instance.onRestartLevel -= OnRestartLevel;
-    }
+        private void SubscribeEvents()
+        {
+            CoreGameSignals.Instance.onLevelInitialize += _levelLoaderCommand.Execute;
+            CoreGameSignals.Instance.onClearActiveLevel += _levelDestroyerCommand.Execute;
+            CoreGameSignals.Instance.onNextLevel += OnNextLevel;
+            CoreGameSignals.Instance.onRestartLevel += OnRestartLevel;
+        }
 
-    private void OnDisable()
-    {
-        UnSubscribeEvents();
-    }
+        private void UnSubscribeEvents()
+        {
+            CoreGameSignals.Instance.onLevelInitialize -= _levelLoaderCommand.Execute;
+            CoreGameSignals.Instance.onClearActiveLevel -= _levelDestroyerCommand.Execute;
+            CoreGameSignals.Instance.onNextLevel -= OnNextLevel;
+            CoreGameSignals.Instance.onRestartLevel -= OnRestartLevel;
+        }
 
-    private void Start()
-    {
-        _levelLoaderCommand.Execute(levelID);
-    }
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
+        }
 
-    private void OnInitializeLevel(int level)
-    {
-        _levelLoaderCommand.Execute(level);
-    }
+        private void Start()
+        {
+            _levelLoaderCommand.Execute(levelID);
+        }
 
-    public void OnClearActiveLevel()
-    {
-        _levelDestroyerCommand.Execute();
-    }
+        private void OnInitializeLevel(int level)
+        {
+            _levelLoaderCommand.Execute(level);
+        }
 
-    private void OnNextLevel()
-    {
-        levelID++;
-        CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
-        CoreGameSignals.Instance.onReset?.Invoke();
-        CoreGameSignals.Instance.onLevelInitialize?.Invoke(levelID);
+        public void OnClearActiveLevel()
+        {
+            _levelDestroyerCommand.Execute();
+        }
 
-    }
+        private void OnNextLevel()
+        {
+            levelID++;
+            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
+            CoreGameSignals.Instance.onReset?.Invoke();
+            CoreGameSignals.Instance.onLevelInitialize?.Invoke(levelID);
 
-    private void OnRestartLevel()
-    {
-        CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
-        CoreGameSignals.Instance.onReset?.Invoke();
-        CoreGameSignals.Instance.onLevelInitialize?.Invoke(levelID);
+        }
+
+        private void OnRestartLevel()
+        {
+            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
+            CoreGameSignals.Instance.onReset?.Invoke();
+            CoreGameSignals.Instance.onLevelInitialize?.Invoke(levelID);
+        }
     }
 }

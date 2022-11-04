@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+using Interfaces;
 using UnityEngine;
 
-public class OnLevelDestroyerCommand : MonoBehaviour
+namespace Commands
 {
-    private Transform _levelHolder;
-
-    public void Execute()
+    public class OnLevelDestroyerCommand : ICommand
     {
-        _levelHolder = _levelHolder;
-    }
+        private Transform _levelHolder;
 
-    public void Execute()
-    {
-        Object.Destroy(_levelHolder);
+        public OnLevelDestroyerCommand(Transform levelHolder)
+        {
+            _levelHolder = levelHolder;
+        }
+
+        public void Execute()
+        {
+            Object.Destroy(_levelHolder.GetChild(0).gameObject);
+        }
+
+        public void Execute(int value)
+        {
+        }
     }
 }

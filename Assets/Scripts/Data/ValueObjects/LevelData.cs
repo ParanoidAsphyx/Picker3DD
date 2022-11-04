@@ -1,7 +1,8 @@
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
-
+namespace Data.ValueObjects
+{
     [Serializable]
     public class LevelData
     {
@@ -13,3 +14,4 @@ using System;
     {
         public sbyte RequiredObjectCount;
     }
+}
