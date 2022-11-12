@@ -1,4 +1,4 @@
-public class UIPanelTypes : MonoBehaviour
+public enum UIPanelTypes
 {
     Start,
     Level,
