@@ -1,5 +1,6 @@
 using Commands;
 using Data.UnityObjects;
+using Signals;
 using UnityEngine;
 
 namespace Managers
@@ -89,17 +90,7 @@ namespace Managers
         {
             _levelLoaderCommand.Execute(levelID);
         }
-
-        private void OnInitializeLevel(int level)
-        {
-            _levelLoaderCommand.Execute(level);
-        }
-
-        public void OnClearActiveLevel()
-        {
-            _levelDestroyerCommand.Execute();
-        }
-
+        
         private void OnNextLevel()
         {
             levelID++;
