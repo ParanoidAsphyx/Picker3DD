@@ -51,7 +51,7 @@ namespace Managers
         private void OnLevelInitialize(int levelValue)
         {
             CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Level, 0);
-            CoreUISignals.Instance.onSetNewLevelValue?.Invoke(levelValue);
+            UISignals.Instance.onSetNewLevelValue?.Invoke(levelValue);
         }
 
         private void OnLevelSuccessful()

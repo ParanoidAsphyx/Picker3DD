@@ -25,16 +25,16 @@ namespace Controllers
     
         private void SubscribeEvents()
         {
-            CoureUISignals.Instance.onOpenPanel += OnOpenPanel;
-            CoureUISignals.Instance.onClosePanel += OnClosePanel;
-            CoureUISignals.Instance.onCloseAllPanels += OnCloseAllPanels;
+            CoreUISignals.Instance.onOpenPanel += OnOpenPanel;
+            CoreUISignals.Instance.onClosePanel += OnClosePanel;
+            CoreUISignals.Instance.onCloseAllPanels += OnCloseAllPanels;
         }
     
         private void UnSubscribeEvents()
         {
-            CoureUISignals.Instance.onOpenPanel -= OnOpenPanel;
-            CoureUISignals.Instance.onClosePanel -= OnClosePanel;
-            CoureUISignals.Instance.onCloseAllPanels -= OnCloseAllPanels;
+            CoreUISignals.Instance.onOpenPanel -= OnOpenPanel;
+            CoreUISignals.Instance.onClosePanel -= OnClosePanel;
+            CoreUISignals.Instance.onCloseAllPanels -= OnCloseAllPanels;
         }
     
         private void OnDisable()
