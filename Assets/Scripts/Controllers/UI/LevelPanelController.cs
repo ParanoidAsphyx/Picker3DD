@@ -29,7 +29,6 @@ public class LevelPanelController : MonoBehaviour
     {
         UISignals.Instance.onSetNewLevelValue += OnSetNewLevelValue;
         UISignals.Instance.onSetStageColor += OnSetStageColor;
-
     }
 
     private void UnSubscribeEvents()

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Enums;
 using Signals;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Controllers
@@ -41,7 +42,8 @@ namespace Controllers
         {
             UnSubscribeEvents();
         }
-    
+
+        [Button("OnOpenPanel")]
         private void OnOpenPanel(UIPanelTypes type, int layerValue)
         {
             OnClosePanel(layerValue);
