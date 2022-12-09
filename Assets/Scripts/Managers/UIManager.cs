@@ -9,15 +9,15 @@ namespace Managers
         #region Self Variables
 
         #region Public Variables
-    
+
         #endregion
 
         #region Serialized Variables
-    
+
         #endregion
 
         #region Private Variables
-    
+
         #endregion
 
         #endregion
@@ -89,4 +89,3 @@ namespace Managers
         }
     }
 }
-
