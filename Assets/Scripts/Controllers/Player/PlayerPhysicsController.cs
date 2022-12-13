@@ -17,6 +17,13 @@ namespace Controllers.Player
 
         #endregion
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("StageArea"))
+            CoreGameSignals.Instance.onStageAreaEntered?.Invoke();
+            InputSignals.Instance.onDisableInput?.Invoke();
+        }
+
         public void OnReset()
         {
         }
