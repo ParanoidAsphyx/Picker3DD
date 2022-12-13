@@ -18,11 +18,19 @@ namespace Controllers.Player
 
         #region Private Variables
 
-        
-        [ShowInInspector] private ScaleData
+        [ShowInInspector] private ScaleData _data;
 
         #endregion
 
         #endregion
+
+        public void OnReset()
+        {
+        }
+
+        public void GetMeshData(ScaleData scaleData)
+        {
+            _data = scaleData;
+        }
     }
 }

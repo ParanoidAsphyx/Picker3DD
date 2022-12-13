@@ -1,8 +1,8 @@
+using Controllers.Player;
 using Data.UnityObjects;
 using Data.ValueObjects;
 using Signals;
 using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEngine;
 
 namespace Managers
@@ -27,15 +27,21 @@ namespace Managers
 
         #endregion
 
-
         private void Awake()
         {
             _data = GetPlayerData();
+            SendDataToControllers();
         }
 
         private PlayerData GetPlayerData()
         {
             return Resources.Load<CD_Player>("Data/CD_Player").Data;
+        }
+
+        private void SendDataToControllers()
+        {
+            movementController.GetMovementData(_data.MovementData);
+            meshController.GetMeshData(_data.ScaleData);
         }
 
         private void OnEnable()
@@ -60,9 +66,9 @@ namespace Managers
 
         private void OnReset()
         {
-            //movementController.OnReset();
-            //meshController.OnReset();
-            // physicsController.OnReset();
+            movementController.OnReset();
+            meshController.OnReset();
+            physicsController.OnReset();
         }
     }
 }
