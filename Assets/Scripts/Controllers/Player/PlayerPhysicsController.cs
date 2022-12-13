@@ -1,4 +1,5 @@
 using Managers;
+using Signals;
 using UnityEngine;
 
 namespace Controllers.Player
@@ -20,8 +21,10 @@ namespace Controllers.Player
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("StageArea"))
-            CoreGameSignals.Instance.onStageAreaEntered?.Invoke();
-            InputSignals.Instance.onDisableInput?.Invoke();
+            {
+                CoreGameSignals.Instance.onStageAreaEntered?.Invoke();
+                InputSignals.Instance.onDisableInput?.Invoke();
+            }
         }
 
         public void OnReset()
