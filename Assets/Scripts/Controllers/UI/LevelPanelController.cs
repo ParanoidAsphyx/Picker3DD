@@ -35,7 +35,6 @@ public class LevelPanelController : MonoBehaviour
     {
         UISignals.Instance.onSetNewLevelValue -= OnSetNewLevelValue;
         UISignals.Instance.onSetStageColor -= OnSetStageColor;
-
     }
 
     private void OnDisable()
@@ -45,8 +44,9 @@ public class LevelPanelController : MonoBehaviour
 
     private void OnSetNewLevelValue(int levelValue)
     {
+
         if (levelValue <= 0) levelValue = 1;
-        
+
         levelTexts[0].text = levelValue.ToString();
         var value = ++levelValue;
         levelTexts[1].text = value.ToString();

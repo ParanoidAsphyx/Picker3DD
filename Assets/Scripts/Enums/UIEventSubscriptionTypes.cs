@@ -1,6 +1,9 @@
-public enum UIEventSubscriptionTypes
+namespace Enums
 {
+    public enum UIEventSubscriptionTypes
+    {
         OnPlay,
         OnNextLevel,
         OnRestartLevel,
+    }
 }
