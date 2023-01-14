@@ -64,7 +64,7 @@ namespace Controllers.Player
                 _data.ForwardSpeed);
             rigidbody.velocity = velocity;
 
-            Vector3 position;
+            float3 position;
             position = new float3(
                 Mathf.Clamp(rigidbody.position.x, _clampValues.x,
                     _clampValues.y),

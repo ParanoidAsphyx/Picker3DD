@@ -1,7 +1,7 @@
 using Interfaces;
 using UnityEngine;
 
-namespace Commands
+namespace Commands.Level
 {
     public class OnLevelLoaderCommand : ICommand
     {
@@ -11,7 +11,7 @@ namespace Commands
         {
             _levelHolder = levelHolder;
         }
-        
+
         public void Execute()
         {
         }

@@ -1,3 +1,4 @@
+using Commands.Player;
 using Controllers.Player;
 using Data.UnityObjects;
 using Data.ValueObjects;
@@ -5,6 +6,7 @@ using Keys;
 using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace Managers
 {
@@ -15,6 +17,8 @@ namespace Managers
         #region Public Variables
 
         public byte StageValue = 0;
+
+        internal ForceBallsToPoolCommand ForceCommand;
 
         #endregion
 
@@ -38,8 +42,13 @@ namespace Managers
         {
             _data = GetPlayerData();
             SendDataToControllers();
+            Init();
         }
 
+        private void Init()
+        {
+            ForceCommand = new ForceBallsToPoolCommand(this, _data.MovementData);
+        }
         private PlayerData GetPlayerData()
         {
             return Resources.Load<CD_Player>("Data/CD_Player").Data;
@@ -65,6 +74,7 @@ namespace Managers
             CoreGameSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
             CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
             CoreGameSignals.Instance.onStageAreaEntered += OnStageAreaEntered;
+            CoreGameSignals.Instance.onFinishAreaEntered += OnFinishAreaEntered;
             CoreGameSignals.Instance.onStageAreaSuccessful += OnStageAreaSuccessful;
             CoreGameSignals.Instance.onReset += OnReset;
         }
@@ -78,6 +88,7 @@ namespace Managers
             CoreGameSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
             CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
             CoreGameSignals.Instance.onStageAreaEntered -= OnStageAreaEntered;
+            CoreGameSignals.Instance.onFinishAreaEntered -= OnFinishAreaEntered;
             CoreGameSignals.Instance.onStageAreaSuccessful -= OnStageAreaSuccessful;
             CoreGameSignals.Instance.onReset -= OnReset;
         }
@@ -126,8 +137,16 @@ namespace Managers
         {
             StageValue = (byte)++value;
             movementController.IsReadyToPlay(true);
+            meshController.ScaleUpPlayer();
+            meshController.ShowUpText();
+            meshController.PlayerConfetiParticle();
         }
 
+        private void OnFinishAreaEntered()
+        {
+            movementController.IsReadyToPlay(false);
+        }
+        
         private void OnReset()
         {
             StageValue = 0;

@@ -1,7 +1,7 @@
 using Interfaces;
 using UnityEngine;
 
-namespace Commands
+namespace Commands.Level
 {
     public class OnLevelDestroyerCommand : ICommand
     {
