@@ -53,7 +53,7 @@ namespace Controllers.Player
 
             if (other.CompareTag("MiniGame"))
             {
-                //Minigame
+                CoreGameSignals.Instance.onMinigameAreaEntered?.Invoke();
             }
         }
 

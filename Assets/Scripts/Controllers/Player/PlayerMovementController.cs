@@ -95,6 +95,11 @@ namespace Controllers.Player
             _clampValues = new float2(inputParams.HorizontalInputClampNegativeSide,
                 inputParams.HorizontalInputClampPositiveSide);
         }
+        
+        public void IncreasePlayerSpeed()
+        {
+            _data.ForwardSpeed += _data.SpeedUpData;
+        }
 
         internal void OnReset()
         {

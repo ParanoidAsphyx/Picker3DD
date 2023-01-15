@@ -76,6 +76,7 @@ namespace Managers
             CoreGameSignals.Instance.onStageAreaEntered += OnStageAreaEntered;
             CoreGameSignals.Instance.onFinishAreaEntered += OnFinishAreaEntered;
             CoreGameSignals.Instance.onStageAreaSuccessful += OnStageAreaSuccessful;
+            CoreGameSignals.Instance.onMinigameAreaEntered += OnMinigameAreaEntered;
             CoreGameSignals.Instance.onReset += OnReset;
         }
 
@@ -90,6 +91,7 @@ namespace Managers
             CoreGameSignals.Instance.onStageAreaEntered -= OnStageAreaEntered;
             CoreGameSignals.Instance.onFinishAreaEntered -= OnFinishAreaEntered;
             CoreGameSignals.Instance.onStageAreaSuccessful -= OnStageAreaSuccessful;
+            CoreGameSignals.Instance.onMinigameAreaEntered -= OnMinigameAreaEntered;
             CoreGameSignals.Instance.onReset -= OnReset;
         }
 
@@ -145,6 +147,11 @@ namespace Managers
         private void OnFinishAreaEntered()
         {
             movementController.IsReadyToPlay(false);
+        }
+        
+        private void OnMinigameAreaEntered()
+        {
+            movementController.IncreasePlayerSpeed();
         }
         
         private void OnReset()

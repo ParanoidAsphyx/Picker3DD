@@ -15,12 +15,14 @@ namespace Data.ValueObjects
         public float ForwardSpeed;
         public float SidewaysSpeed;
         public float ForwardForceCounter;
+        public float SpeedUpData;
 
-        public MovementData(float forwardSpeed, float sidewaysSpeed, float forwardForceCounter)
+        public MovementData(float forwardSpeed, float sidewaysSpeed, float forwardForceCounter, float speedUpData)
         {
             ForwardSpeed = forwardSpeed;
             SidewaysSpeed = sidewaysSpeed;
             ForwardForceCounter = forwardForceCounter;
+            SpeedUpData = speedUpData;
         }
     }
 

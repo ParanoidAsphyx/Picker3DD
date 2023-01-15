@@ -33,6 +33,12 @@ MonoBehaviour:
     - Cinemachine
     - Assembly-CSharp
     - Purchasing.Common
+    - RuntimeTestAssembly
+    - NonConvexCollider
+    - NonConvexColliderRuntimeAPI
+    - sc.stylizedwater2.editor
+    - sc.stylizedwater2.runtime
+    - NonConvexEditor
     - Analytics
     - Sirenix.OdinInspector.Modules.UnityMathematics
     showAdvancedSettings: 0
