@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
     {
         UnsubscribeEvents();
     }
-    
+
+    //[Button("Change State")]
     private void OnChangeGameState(GameStates state)
     {
         states = state;

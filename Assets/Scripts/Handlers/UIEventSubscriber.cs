@@ -1,8 +1,8 @@
 using Enums;
 using Managers;
 using Sirenix.OdinInspector;
-using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIEventSubscriber : MonoBehaviour
 {
@@ -47,13 +47,11 @@ public class UIEventSubscriber : MonoBehaviour
                     button.onClick.AddListener(_manager.Play);
                     break;
                 }
-
             case UIEventSubscriptionTypes.OnNextLevel:
                 {
                     button.onClick.AddListener(_manager.NextLevel);
                     break;
                 }
-
             case UIEventSubscriptionTypes.OnRestartLevel:
                 {
                     button.onClick.AddListener(_manager.RestartLevel);
@@ -71,13 +69,11 @@ public class UIEventSubscriber : MonoBehaviour
                     button.onClick.RemoveListener(_manager.Play);
                     break;
                 }
-
             case UIEventSubscriptionTypes.OnNextLevel:
                 {
                     button.onClick.RemoveListener(_manager.NextLevel);
                     break;
                 }
-
             case UIEventSubscriptionTypes.OnRestartLevel:
                 {
                     button.onClick.RemoveListener(_manager.RestartLevel);
@@ -91,3 +87,4 @@ public class UIEventSubscriber : MonoBehaviour
         UnSubscribeEvents();
     }
 }
+

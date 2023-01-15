@@ -11,4 +11,3 @@ namespace Signals
         public UnityAction onCloseAllPanels = delegate { };
     }
 }
-

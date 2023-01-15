@@ -1,9 +1,11 @@
-using System;
 using Controllers.Pool;
 using DG.Tweening;
 using Managers;
 using Signals;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Controllers.Player
 {
@@ -16,6 +18,13 @@ namespace Controllers.Player
         [SerializeField] private PlayerManager manager;
         [SerializeField] private new Collider collider;
         [SerializeField] private new Rigidbody rigidbody;
+        [FormerlySerializedAs("xptiblesCountText")] [FormerlySerializedAs("bonusText")] [SerializeField] private TextMeshPro xptiblesValueText;
+        
+        #endregion
+
+        #region Private Variables
+
+        private float xptibles = 1;
 
         #endregion
 
@@ -30,7 +39,6 @@ namespace Controllers.Player
                 InputSignals.Instance.onDisableInput?.Invoke();
                 DOVirtual.DelayedCall(3, () =>
                 {
-
                     var result = other.transform.parent.GetComponentInChildren<PoolController>()
                         .TakeStageResult(manager.StageValue);
                     if (result)
@@ -55,8 +63,39 @@ namespace Controllers.Player
             {
                 CoreGameSignals.Instance.onMinigameAreaEntered?.Invoke();
             }
+
+            if (other.CompareTag("Xptibles"))
+            {
+                IncreaseXptiblesValue();
+                Destroy(other.gameObject);
+                CoreGameSignals.Instance.onXptibleClaimed?.Invoke();
+            }
         }
 
+        internal void IncreaseXptiblesValue()
+        {
+            xptibles++;
+            SetBonusValue();
+        }
+
+        internal void ResetBonusValue()
+        {
+            xptibles = 1;
+            SetBonusValue();
+        }
+
+        private void SetBonusValue()
+        {
+            xptiblesValueText.text = xptibles + "Xptibles";
+        }
+
+        internal void ShowUpBonusText()
+        {
+            xptiblesValueText.DOFade(1, 0f).SetEase(Ease.Flash).OnComplete(() => xptiblesValueText.DOFade(0, 0).SetDelay(.65f));
+            xptiblesValueText.rectTransform.DOAnchorPosY(.85f, .65f).SetRelative(true).SetEase(Ease.OutBounce).OnComplete(() =>
+                xptiblesValueText.rectTransform.DOAnchorPosY(-.85f, .65f).SetRelative(true));
+        }
+        
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;

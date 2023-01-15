@@ -1,8 +1,9 @@
 using Data.ValueObjects;
 using Keys;
-using Unity.Mathematics;
 using Managers;
 using Sirenix.OdinInspector;
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Controllers.Player
@@ -25,11 +26,10 @@ namespace Controllers.Player
         [ShowInInspector] private bool _isReadyToMove, _isReadyToPlay;
         [ShowInInspector] private float _xValue;
         private float2 _clampValues;
-        
-        #endregion
 
         #endregion
 
+        #endregion
 
         internal void GetMovementData(MovementData movementData)
         {
@@ -42,13 +42,14 @@ namespace Controllers.Player
             {
                 StopPlayer();
                 return;
-            }         
+            }
 
             if (_isReadyToMove)
             {
                 MovePlayer();
             }
             else StopPlayerHorizontaly();
+
         }
 
         private void StopPlayerHorizontaly()
@@ -88,8 +89,7 @@ namespace Controllers.Player
         {
             _isReadyToMove = condition;
         }
-
-        internal void UpdateInputParams(HorizontalInputParams inputParams)
+        internal void UpdateInputParams(HorizontalnputParams inputParams)
         {
             _xValue = inputParams.HorizontalInputValue;
             _clampValues = new float2(inputParams.HorizontalInputClampNegativeSide,

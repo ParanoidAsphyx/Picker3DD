@@ -1,8 +1,8 @@
 using Data.ValueObjects;
-using Managers;
 using DG.Tweening;
-using TMPro;
+using Managers;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 
 namespace Controllers.Player
@@ -27,7 +27,7 @@ namespace Controllers.Player
         #endregion
 
         #endregion
-        
+
         internal void GetMeshData(ScaleData scaleData)
         {
             _data = scaleData;
@@ -45,13 +45,14 @@ namespace Controllers.Player
                 scaleText.rectTransform.DOAnchorPosY(-.85f, .65f).SetRelative(true));
         }
 
-        internal void PlayerConfetiParticle()
+        internal void PlayConfetiParticle()
         {
             confettiParticle.Play();
+            //confettiParticle.SetActive(true);
+            //DOVirtual.DelayedCall(2, () => confettiParticle.SetActive(false));
         }
         internal void OnReset()
         {
-            
         }
     }
 }

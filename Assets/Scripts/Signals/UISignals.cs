@@ -9,4 +9,3 @@ namespace Signals
         public UnityAction<int> onSetStageColor = delegate { };
     }
 }
-

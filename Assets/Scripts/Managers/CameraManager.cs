@@ -1,6 +1,6 @@
 using System;
-using Signals;
 using Cinemachine;
+using Signals;
 using UnityEngine;
 
 namespace Managers

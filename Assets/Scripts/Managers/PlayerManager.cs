@@ -6,7 +6,6 @@ using Keys;
 using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace Managers
 {
@@ -49,6 +48,7 @@ namespace Managers
         {
             ForceCommand = new ForceBallsToPoolCommand(this, _data.MovementData);
         }
+
         private PlayerData GetPlayerData()
         {
             return Resources.Load<CD_Player>("Data/CD_Player").Data;
@@ -77,6 +77,7 @@ namespace Managers
             CoreGameSignals.Instance.onFinishAreaEntered += OnFinishAreaEntered;
             CoreGameSignals.Instance.onStageAreaSuccessful += OnStageAreaSuccessful;
             CoreGameSignals.Instance.onMinigameAreaEntered += OnMinigameAreaEntered;
+            CoreGameSignals.Instance.onXptibleClaimed += OnXptibleClaimed;
             CoreGameSignals.Instance.onReset += OnReset;
         }
 
@@ -92,6 +93,7 @@ namespace Managers
             CoreGameSignals.Instance.onFinishAreaEntered -= OnFinishAreaEntered;
             CoreGameSignals.Instance.onStageAreaSuccessful -= OnStageAreaSuccessful;
             CoreGameSignals.Instance.onMinigameAreaEntered -= OnMinigameAreaEntered;
+            CoreGameSignals.Instance.onXptibleClaimed -= OnXptibleClaimed;
             CoreGameSignals.Instance.onReset -= OnReset;
         }
 
@@ -110,7 +112,7 @@ namespace Managers
             movementController.IsReadyToMove(true);
         }
 
-        private void OnInputDragged(HorizontalInputParams inputParams)
+        private void OnInputDragged(HorizontalnputParams inputParams)
         {
             movementController.UpdateInputParams(inputParams);
         }
@@ -141,19 +143,25 @@ namespace Managers
             movementController.IsReadyToPlay(true);
             meshController.ScaleUpPlayer();
             meshController.ShowUpText();
-            meshController.PlayerConfetiParticle();
+            meshController.PlayConfetiParticle();
         }
 
         private void OnFinishAreaEntered()
         {
             movementController.IsReadyToPlay(false);
         }
-        
+
         private void OnMinigameAreaEntered()
         {
             movementController.IncreasePlayerSpeed();
+
         }
-        
+
+        private void OnXptibleClaimed()
+        {
+            physicsController.IncreaseXptiblesValue();
+            physicsController.ShowUpBonusText();
+        }
         private void OnReset()
         {
             StageValue = 0;

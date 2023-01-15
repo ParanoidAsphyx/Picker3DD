@@ -11,7 +11,7 @@ namespace Controllers.Pool
 {
     public class PoolController : MonoBehaviour
     {
-         #region Self Variables
+        #region Self Variables
 
         #region Serialized Variables
 
@@ -66,7 +66,7 @@ namespace Controllers.Pool
         private void OnChangeThePoolColor(int stageValue)
         {
             if (stageValue == stageID)
-                renderer.sharedMaterial.DOColor(new Color(0.1607842f, 0.6039216f, 0.1766218f), 1).SetEase(Ease.Linear);
+                renderer.material.DOColor(new Color(0.99609375f, 0f, 0.078125f), 1).SetEase(Ease.Linear);
         }
 
         private void UnSubscribeEvents()

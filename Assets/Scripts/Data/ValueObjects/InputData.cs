@@ -4,7 +4,6 @@ using Unity.Mathematics;
 namespace Data.ValueObjects
 {
     [Serializable]
-
     public struct InputData
     {
         public float HorizontalInputSpeed;
@@ -18,5 +17,4 @@ namespace Data.ValueObjects
             ClampSpeed = clampSpeed;
         }
     }
-
 }
